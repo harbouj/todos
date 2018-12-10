@@ -22,4 +22,22 @@ class TodoController extends Controller
 
         return response($todo, 201);
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Todo  $todo
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Todo $todo)
+    {
+        $data = [
+            "text" => request("text"),
+            "finished" => request("finished"),
+        ];
+        
+        $todo->update($data);
+        return response($todo, 200);
+    }
 }
