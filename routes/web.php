@@ -12,3 +12,4 @@
 */
 
 Route::get("/todos", "TodoController@index");
+Route::get("/todos", "TodoController@store");
