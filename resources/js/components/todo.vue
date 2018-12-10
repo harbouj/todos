@@ -29,7 +29,18 @@
                 baseId: 1,
             }
         },
+        created() {
+          this.getTodos();
+        },
         methods: {
+
+            getTodos() {
+              const t = this;
+              axios.get('/todos')
+                  .then(({data}) => {
+                    t.todos = data;
+                  });
+            },
             add() {
                 const t = this;
 
