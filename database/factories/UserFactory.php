@@ -26,5 +26,6 @@ $factory->define(App\User::class, function (Faker $faker) {
 $factory->define(App\Todo::class, function (Faker $faker) {
     return [
         'text' => $faker->sentence,
+        'finished' => false
     ];
 });
