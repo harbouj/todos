@@ -41,4 +41,15 @@ class TodoTest extends TestCase
         $this->assertDatabaseHas('todos', $updated_todo);
         $this->assertDatabaseMissing('todos', $todo);
     }
+
+    /** @test */
+    public function can_delete_a_todo()
+    {
+        $todo = factory('App\Todo')->create()->toArray();
+        $this->delete('/todos/'. $todo['id'])
+            ->assertStatus(200);
+        $this->assertDatabaseMissing('todos', $todo);
+    }
+
+    
 }
