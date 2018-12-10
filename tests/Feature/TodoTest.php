@@ -30,4 +30,15 @@ class TodoTest extends TestCase
 
         $this->assertDatabaseHas('todos', $todo);
     }
+    /** @test */
+    public function can_update_a_todo()
+    {
+        $todo = factory('App\Todo')->create()->toArray();
+        $updated_todo = factory('App\Todo')->make()->toArray();
+        $this->patch('/todos/'. $todo['id'], $updated_todo)
+            ->assertStatus(200)
+            ->assertJson($updated_todo);
+        $this->assertDatabaseHas('todos', $updated_todo);
+        $this->assertDatabaseMissing('todos', $todo);
+    }
 }
