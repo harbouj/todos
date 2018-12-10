@@ -13,3 +13,5 @@
 
 Route::get("/todos", "TodoController@index");
 Route::post("/todos", "TodoController@store");
+
+Route::patch("/todos/{todo}", "TodoController@update");
