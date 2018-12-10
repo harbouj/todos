@@ -18,4 +18,16 @@ class TodoTest extends TestCase
             ->assertStatus(200)
             ->assertJson($todos->toArray());
     }
+
+    /** @test */
+    public function can_create_todo()
+    {
+        $todo = factory("App\Todo")->make()->toArray();
+
+        $this->post('/todos', $todo)
+            ->assertStatus(201)
+            ->assertJson($todo);
+
+        $this->assertDatabaseHas('todos', $todo);
+    }
 }
