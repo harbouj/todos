@@ -8,13 +8,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TodoTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    use RefreshDatabase;
+
+    /** @test */
+    public function can_get_all_the_todos()
     {
-        $this->assertTrue(true);
+        $todos = factory("App\Todo", 2)->create();
+        $this->get("/todos")
+            ->assertStatus(200)
+            ->assertJson($todos->toArray());
     }
 }
