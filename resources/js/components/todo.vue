@@ -26,7 +26,6 @@
             return{
                 todos: [],
                 newTodo: '',
-                baseId: 1,
             }
         },
         created() {
@@ -41,20 +40,20 @@
                     t.todos = data;
                   });
             },
+            createTodo(text) {
+                const t = this;
+                
+                axios.post('/todos', {text: text, finished: false})
+                    .then(({data}) => {
+                        t.todos.unshift(data);
+                    });
+            },
             add() {
                 const t = this;
 
                 if(t.newTodo.length > 0) {
-                    let todo = {
-                        id: t.baseId,
-                        text: t.newTodo,
-                        finished: false,
-                    }
-
-                    t.todos.unshift(todo);
-
+                    t.createTodo(t.newTodo);
                     t.newTodo = '';
-                    t.baseId++;
                 }
             },
             updateStatus(todo) {
