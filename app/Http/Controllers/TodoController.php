@@ -40,4 +40,10 @@ class TodoController extends Controller
         $todo->update($data);
         return response($todo, 200);
     }
+
+    public function destroy(Todo $todo)
+    {
+        $todo->delete();
+        return response('Deleted Succesfully', 200);
+    }
 }
