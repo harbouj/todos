@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::view('/', 'welcome');
 
 Route::get("/todos", "TodoController@index");
 Route::post("/todos", "TodoController@store");
