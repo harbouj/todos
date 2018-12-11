@@ -36,6 +36,10 @@
                 bus.$on('update-todo', function (details) {
                   t.updateTodo(details);
                 })
+
+                bus.$on('remove-todo', function (details) {
+                  t.removeTodo(details);
+                })
             },
             getTodos() {
               const t = this;
@@ -69,7 +73,14 @@
                   })
             },
 
-            
+            removeTodo(details) {
+                const t = this;
+
+                axios.delete('/todos/'+ details.id)
+                  .then(() => {
+                    t.todos.splice(details.index, 1)
+                  })
+            },
         },
         components: {
           todoItem
