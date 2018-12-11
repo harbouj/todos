@@ -3,8 +3,8 @@
         <div class="mb-4">
             <h1 class="text-grey-darkest">Todo List</h1>
             <div class="flex mt-4">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" v-model="newTodo" @keyup.enter="add" placeholder="Add Todo">
-                <button class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal" @click="add" :disabled="newTodo.length === 0">Add</button>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" v-model="newTodo" @keyup.enter="addTodo" placeholder="Add Todo">
+                <button class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal" @click="addTodo" :disabled="newTodo.length === 0">Add</button>
             </div>
         </div>
         <div class="max-h-screen-1/2 overflow-y-scroll">
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import todoItem from './todo-item'
     export default{
         data(){
             return{
@@ -26,9 +27,16 @@
         },
         created() {
           this.getTodos();
+          this.initListeners();
         },
         methods: {
+            initListeners() {
+                const t = this;
 
+                bus.$on('update-todo', function (details) {
+                  t.updateTodo(details);
+                })
+            },
             getTodos() {
               const t = this;
               axios.get('/todos')
@@ -44,7 +52,7 @@
                         t.todos.unshift(data);
                     });
             },
-            add() {
+            addTodo() {
                 const t = this;
 
                 if(t.newTodo.length > 0) {
@@ -52,14 +60,19 @@
                     t.newTodo = '';
                 }
             },
-            updateStatus(todo) {
-                todo.finished = !todo.finished;
-            },
-            remove(index) {
-              const t = this;
+            updateTodo(details) {
+                const t = this;
 
-              t.todos.splice(index, 1);
-            }
+                axios.patch('/todos/'+ details.id, details.data)
+                  .then(({data}) => {
+                    t.todos.splice(details.index, 1, data)
+                  })
+            },
+
+            
+        },
+        components: {
+          todoItem
         }
     }
 </script>
