@@ -1,5 +1,7 @@
 # Laravel and VueJs Todo App
 
+Simple todo list that makes it easy to keep your entire week's work organized. 
+
 The Todo application can execute the following tasks : 
 
 1. Create a new todo.
