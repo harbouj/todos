@@ -7,12 +7,8 @@
                 <button class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal" @click="add" :disabled="newTodo.length === 0">Add</button>
             </div>
         </div>
-        <div>
-            <div class="flex mb-4 items-center" v-for="(todo, index) in todos" :key="todo.id">
-                <input type="checkbox" class="mr-2" @click="updateStatus(todo)">
-                <p class="w-full" :class="todo.finished ? 'line-through text-green' : 'text-grey-darkest'">{{todo.text}}</p>
-                <button class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red" @click="remove(index)">Remove</button>
-            </div>
+        <div class="max-h-screen-1/2 overflow-y-scroll">
+            <todo-item v-for="(todo, index) in todos" :key="todo.id" :todo="todo" :index="index"></todo-item>
             <div v-if="todos.length === 0">
                 <p class="w-full text-center text-grey-dark">There are no todos</p>
             </div>

@@ -7,6 +7,7 @@
 require("./bootstrap");
 
 window.Vue = require("vue");
+window.bus = new Vue();
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +20,7 @@ window.Vue = require("vue");
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
-Vue.component("todo-list", require("./components/todo.vue"));
+Vue.component("todo-list", require("./components/todo-list.vue"));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
